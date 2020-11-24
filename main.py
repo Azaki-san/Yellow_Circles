@@ -1,14 +1,14 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QGridLayout
-from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor, QPixmap, QPen, QBrush
 from random import randrange
+from Ui import Ui_MainWindow
 import sys
 
 
-class Main(QMainWindow):
+class Main(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Main, self).__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
 
         self.pushButton.clicked.connect(self.draw_circle)
         self.label = QLabel(self)
@@ -23,7 +23,7 @@ class Main(QMainWindow):
         w = randrange(500)
         self.qp = QPainter()
         self.qp.begin(self.label.pixmap())
-        self.qp.setPen(QPen(QColor(255, 255, 0), 6))
+        self.qp.setPen(QPen(QColor(randrange(256), randrange(256), randrange(256)), 6))
         self.qp.drawEllipse(x, y, w, w)
         self.qp.end()
         self.update()
